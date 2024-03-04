@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  
+  mydb:
+    image: mongo
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  
+  
+  backend:
+    build: .
+    depends_on: 
+      - mydb
+    ports:
+      - "8000:8000"
+
+
+volumes:
+  mongo_data:
