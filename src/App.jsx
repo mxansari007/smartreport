@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { Button } from './components/ui/button'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import Roles from './pages/Roles'
+import Temp from './pages/Temp.jsx'
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Roles />} />
+          <Route path='/' element={<Temp />} />
         </Routes>
       </BrowserRouter>
     </>
