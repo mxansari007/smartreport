@@ -1,0 +1,13 @@
+#male-body{
+    animation: bodyanimation 1s;
+}
+
+@keyframes bodyanimation {
+    0%{
+        transform: translateY(-100%);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+}
