@@ -1,0 +1,17 @@
+
+
+
+
+#report-container{
+    animation: report 1s 2s both;
+}
+
+
+@keyframes report {
+    0%{
+        transform: scaleX(0);
+    }
+    100%{
+        transform: scaleX(1);
+    }
+}

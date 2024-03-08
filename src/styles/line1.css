@@ -1,0 +1,19 @@
+
+
+
+
+#line1{
+    animation: appear 1s 1s both;
+}
+
+
+@keyframes appear {
+    0%{
+        transform-origin: bottom left;
+        transform: scaleX(0) scaleY(0);
+    }
+    100%{
+        transform-origin: top right;
+        transform: scaleX(1) scaleY(1);
+    }
+}

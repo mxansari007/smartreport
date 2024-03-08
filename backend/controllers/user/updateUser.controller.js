@@ -1,5 +1,5 @@
 import { user } from "../../models/users.model.js";
-import { Test } from "../../models/tests.model.js";
+
 
 export default async function updateUser(req,res){
 
@@ -27,9 +27,6 @@ export default async function updateUser(req,res){
             }else{
                 res.send('invalid test');
             }
-        }
-        if(avatar){
-            
         }
 
         res.send('updated successfully');
