@@ -41,7 +41,7 @@ const Report = () => {
     }
  
   return (
-    <div className='flex min-h-screen w-full justify-center'>
+    <div className='flex min-h-screen w-[100%] justify-center'>
 
     <Pdf />
     </div>

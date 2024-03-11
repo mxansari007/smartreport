@@ -1,6 +1,8 @@
 import { user } from "../../models/users.model.js";
 import jwt from "jsonwebtoken";
 import { dataparser } from "../../utils/dataparser.js";
+
+
 export const getTest = async (req,res)=>{
     try{
 
@@ -26,5 +28,23 @@ export const getTest = async (req,res)=>{
 
     }catch(err){
         res.status(401).send('some error');
+    }
+}
+
+
+export const getAbout = async (req,res)=>{
+    try{
+        const { userId } = req.params;
+
+        const myres = await user.findOne({userId:userId});
+
+        if(myres!==null){
+            res.status(200).send(myres.about);
+        }else{
+            res.status(201).send('user not found');
+        }
+
+    }catch(error){
+        res.status(500).send('unsuccefull');
     }
 }
