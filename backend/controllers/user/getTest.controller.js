@@ -7,14 +7,16 @@ export const getTest = async (req,res)=>{
     try{
 
     
-        const token = req.cookies?.token;
+        const {userId} = req.params;
 
-        if (!token) return res.status(401).json({ error: 'Access denied' });
+        // const token = req.cookies?.token;
+
+        // if (!token) return res.status(401).json({ error: 'Access denied' });
     
 
-        const decoded = jwt.verify(token, 'maazansari007');
+        // const decoded = jwt.verify(token, 'maazansari007');
 
-        const myres = await user.findOne({userId:decoded.userId});
+        const myres = await user.findOne({userId:userId});
         if(myres===null){
             res.send('no user');
         }else{

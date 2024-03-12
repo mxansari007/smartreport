@@ -12,10 +12,10 @@ import {createAbout, createUser} from "../controllers/user/createUser.controller
 import { getAbout, getTest } from "../controllers/user/getTest.controller.js";
 
 router.post('/loginUser',loginUser);
-router.get('/getTest',auth,getTest)
-router.post('/updateUser',auth,updateUser);
-router.post('/updateAvatar',auth,upload.single('avatar'),updateAvatar);
-router.post('/removeAvatar',auth,removeAvatar);
+router.get('/getTest/:userId',getTest)
+router.post('/updateUser',updateUser);
+router.post('/updateAvatar',upload.single('avatar'),updateAvatar);
+router.post('/removeAvatar',removeAvatar);
 router.post('/createAbout',createAbout);
 router.get('/getAbout/:userId',getAbout);
 
