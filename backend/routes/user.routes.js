@@ -9,15 +9,16 @@ import { removeAvatar } from "../controllers/user/removeAvatar.controller.js";
 
 import { auth } from "../middleware/auth.middleware.js";
 import {createAbout, createUser} from "../controllers/user/createUser.controller.js";
-import { getAbout, getTest } from "../controllers/user/getTest.controller.js";
-
+import { getAboutTest, getTest } from "../controllers/user/getTest.controller.js";
+import { getUser } from "../controllers/user/getUser.controller.js";
 router.post('/loginUser',loginUser);
 router.get('/getTest/:userId',getTest)
 router.post('/updateUser',updateUser);
 router.post('/updateAvatar',upload.single('avatar'),updateAvatar);
 router.post('/removeAvatar',removeAvatar);
 router.post('/createAbout',createAbout);
-router.get('/getAbout/:userId',getAbout);
+router.get('/getAboutTest/:userId',getAboutTest);
+router.get('/getUser/:userId',getUser);
 
 
 router.get('/createUser',createUser)

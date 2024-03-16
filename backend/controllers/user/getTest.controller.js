@@ -34,7 +34,7 @@ export const getTest = async (req,res)=>{
 }
 
 
-export const getAbout = async (req,res)=>{
+export const getAboutTest = async (req,res)=>{
     try{
         const { userId } = req.params;
 
