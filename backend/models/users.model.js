@@ -16,6 +16,18 @@ const TestValueSchema = new Schema({
     other_male_id: String
   }, { _id: false });  // _id is set to false to prevent creation of an ObjectId
 
+  const pointSchema = new Schema({
+    pointIcon:{type:String},
+    point:String,
+  },{_id:false})
+
+  const aboutSchema = new Schema({
+    description: String,
+    icon:String,
+    positive:[pointSchema],
+    negative:[pointSchema],
+  })
+
 
 const userSchema = new Schema({
     userId:{
@@ -60,6 +72,7 @@ const userSchema = new Schema({
     test_code:{
         type:String,
     },
+    about:aboutSchema,
     test_name:{
         type:String,
     },

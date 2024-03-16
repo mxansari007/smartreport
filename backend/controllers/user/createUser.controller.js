@@ -14,4 +14,20 @@ export const createUser = async (req,res)=>{
 }
 
 
+export const createAbout = async (req,res)=>{
+    try{
+
+        const {test_id,about} = req.body;
+
+        await user.updateMany({test_id:test_id},{about:about});
+
+        res.status(200).send('about updated successfully');
+
+    }catch(error){
+
+        res.status(500).send('update unsuccessful');
+    }
+}
+
+
 
