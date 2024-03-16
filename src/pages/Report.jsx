@@ -7,7 +7,6 @@ import Line1 from '../components/Line1';
 import Reportcontainer from '../components/Reportcontainer.jsx';
 import Kidney from '../components/Kidney.jsx';
 import { useState } from 'react';
-import Pdf from '../components/Pdf.jsx';
 
 const Report = () => {
 
