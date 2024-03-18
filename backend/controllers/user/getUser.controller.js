@@ -5,8 +5,10 @@ export const getUser = async (req,res)=>{
     try{
             const token = req.cookies?.token;
 
-
+            console.log(token);
             const data = jwt.verify(token,'maazansari007')
+
+            console.log(data);
 
             const myres = await user.findOne({userId:data.userId});
 
