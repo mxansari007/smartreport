@@ -25,7 +25,7 @@ function Dashboard() {
 
       try{
         const res = await axios({
-          url:'http://localhost:8000/user/getUser',
+          url:import.meta.env.VITE_BASE_URL + '/user/getUser',
           method:'GET',
           withCredentials:true
         })
