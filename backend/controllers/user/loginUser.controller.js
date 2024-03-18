@@ -26,7 +26,7 @@ export default async function loginUser(req,res){
                 httpOnly: true,
                 maxAge: 60 * 60 * 1000, // 1 hour
                 secure: true, // Set to true if using HTTPS
-                sameSite: 'strict', // Adjust as needed
+                sameSite: 'none', // Adjust as needed
                 path: '/'
             });
     
