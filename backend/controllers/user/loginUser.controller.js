@@ -1,5 +1,10 @@
 import { user } from "../../models/users.model.js";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+
+dotenv.config({
+    path:'./.env'
+})
 
 export default async function loginUser(req,res){
     try{
@@ -43,7 +48,7 @@ export const logoutUser = async (req,res)=>{
 
         const token = req.cookies?.token;
 
-        res.clearCookie('token', { domain: 'localhost', path: '/', expires: new Date(0) });
+        res.clearCookie('token', { domain: process.env.FRONTEND_URL, path: '/', expires: new Date(0) });
         res.send('logged out')
 
     }catch(error){
