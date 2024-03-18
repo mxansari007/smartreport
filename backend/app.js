@@ -3,16 +3,24 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from './firebaseConfig.js';
+import dotenv from "dotenv";
 
 const firebaseApp = initializeApp(firebaseConfig);
 
 
+
 const app = express()
 
+dotenv.config({
+    'path':'./.env'
+})
+
+
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin:process.env.FRONTEND_URL,
     credentials: true
 }))
+
 
 app.use(express.json({limit: "16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))

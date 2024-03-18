@@ -13,6 +13,8 @@ export default async function loginUser(req,res){
             const token = jwt.sign({ userId: userId }, 'maazansari007', {
                 expiresIn: '1h',
                 });
+
+
             
             // Set the token in an HTTP-only cookie
     res.cookie('token', token, {
@@ -25,10 +27,28 @@ export default async function loginUser(req,res){
         }
 
 
-        res.status(200).send({msg:'login successful'});
+        res.status(200).send(myres);
 
 
     }catch(err){
      res.send(err.message);   
     }
+}
+
+
+export const logoutUser = async (req,res)=>{
+
+
+    try{
+
+        const token = req.cookies?.token;
+
+        res.clearCookie('token', { domain: 'localhost', path: '/', expires: new Date(0) });
+        res.send('logged out')
+
+    }catch(error){
+
+        res.status(500).send(error);
+    }
+
 }

@@ -1,11 +1,14 @@
 import { user } from "../../models/users.model.js";
-
+import  jwt  from "jsonwebtoken";
 
 export const getUser = async (req,res)=>{
     try{
-            const {userId} = req.params;
+            const token = req.cookies?.token;
 
-            const myres = user.findOne({userId:userId});
+
+            const data = jwt.verify(token,'maazansari007')
+
+            const myres = await user.findOne({userId:data.userId});
 
             if(myres!==null){
                 res.status(201).send(myres);

@@ -1,6 +1,7 @@
 import {user} from '../../models/users.model.js';
 import { uploadOnCloudinary } from '../../utils/cloudinary.js';
 
+
 export async function updateAvatar(req,res){
     try{
         
@@ -9,6 +10,10 @@ export async function updateAvatar(req,res){
         if (!req.file) {
             return res.status(400).send({ error: "File not uploaded" });
         }
+
+        const token = req.cookies?.token;
+
+
 
         const avatarFilePath = req.file.path;
         const {mobile} = req.body

@@ -1,37 +1,36 @@
 import { user } from "../../models/users.model.js";
+import jwt from "jsonwebtoken";
 
 
 export default async function updateUser(req,res){
 
     try{
-        const {mobile,avatar,gender,test,age,firstName,lastName} = req.body;
+        const {mobile,gender,age,customer_name} = req.body;
 
-    if(avatar||gender||test||age||firstName||lastName){
+        const token = req.cookies?.token;
 
-        if(gender){
-            await user.updateOne({mobile:mobile},{gender:gender});
+        const {userId} = jwt.verify(token,'maazansari007');
+        
+        const myres = await user.findOne({userId:userId});
+
+    if(gender||age||customer_name||mobile){
+
+        if(gender!==undefined){
+            await user.updateOne({userId:userId},{gender:gender});
         }
-        if(age){
-            await user.updateOne({mobile:mobile},{age:age});
+        if(age!==undefined){
+            await user.updateOne({userId:userId},{age:age});
         }
-        if(firstName){
-            await user.updateOne({mobile:mobile},{firstName:firstName});
+        if(customer_name!==undefined){
+            await user.updateOne({userId:userId},{customer_name:customer_name});
         }
-        if(lastName){
-            await user.updateOne({mobile:mobile},{lastName:lastName});
-        }
-        if(test){
-            const myres = await Test.findOne({name:test});
-            if(myres){
-                await user.updateOne({mobile:mobile},{$push: {test: myres}})
-            }else{
-                res.send('invalid test');
-            }
+        if(mobile!==undefined){
+            await user.updateOne({userId:userId},{mobile:mobile});
         }
 
-        res.send('updated successfully');
+        res.status(201).send(myres);
     }else{
-        res.send('nothing to update');
+        res.status(500).send('nothing to update');
     }
 
     }catch(err){

@@ -9,15 +9,16 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import TestPage from './pages/TestPage.jsx'
 import DisplayTest from './pages/DisplayTest.jsx';
+import Navbar from './components/Navbar.jsx';
 // import Cart from './pages/cart.jsx';
 function App() {
   return (
     <>
       <BrowserRouter>
+      {/* <Navbar /> */}
       <Routes>
-          <Route path='/' element={<Temp />} />
-          <Route path='/Report' element={<Report />} />
-        <Route path="/Login" element={<Login/>} />
+        <Route path="/" element={<Login/>} />
+        <Route path='/Report' element={<Report />} />
         <Route path="/Dashboard" element={<Dashboard/>} />
         <Route path="/Test" element={<TestPage/>} />
         <Route path="/DisTest" element={<DisplayTest/>}></Route>

@@ -7,6 +7,10 @@ import Line1 from '../components/Line1';
 import Reportcontainer from '../components/Reportcontainer.jsx';
 import Kidney from '../components/Kidney.jsx';
 import { useState } from 'react';
+import Navbar from '../components/Navbar.jsx';
+
+
+import Pdf from '../components/Pdf.jsx';
 
 const Report = () => {
 
@@ -40,8 +44,10 @@ const Report = () => {
     }
  
   return (
-    <div className='flex min-h-screen w-[100%] justify-center'>
-
+    <div className='flex flex-col min-h-screen w-[100%] bg-[#0077ff]'>
+    <div className='mb-6'>
+    <Navbar />
+    </div>
     <Pdf />
     </div>
   )
