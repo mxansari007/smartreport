@@ -19,7 +19,8 @@ dotenv.config({
 app.use(cors({
     origin:process.env.FRONTEND_URL,
     credentials: true,
-    secure:true
+    secure:true,
+    sameSite:'none'
 }))
 
 
