@@ -24,8 +24,10 @@ export default async function loginUser(req,res){
             // Set the token in an HTTP-only cookie
     res.cookie('token', token, {
                 httpOnly: true,
-                // secure: true, // Uncomment this line if you're using HTTPS
-                maxAge: 60 * 60 * 1000 // 1 hour
+                maxAge: 60 * 60 * 1000, // 1 hour
+                secure: true, // Set to true if using HTTPS
+                sameSite: 'strict', // Adjust as needed
+                path: '/'
             });
     
 
