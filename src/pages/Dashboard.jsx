@@ -27,7 +27,8 @@ function Dashboard() {
         const res = await axios({
           url:import.meta.env.VITE_BASE_URL + '/user/getUser',
           method:'GET',
-          withCredentials:true
+          withCredentials:true,
+          
         })
 
         setUserDetails(res.data);
