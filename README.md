@@ -18,6 +18,14 @@ The Smart Report Generator is a comprehensive solution designed to enhance patie
   
 - **Visually Appealing Reports**: Reports are designed to be visually appealing and easily comprehensible, aiding users in understanding their health data effectively.
 
+# Users
+
+we have taken the data provided by the hackathon co-ordinators and we have selected 10 users from that data
+we are using mongoDb and express for backend.
+
+The user Id's are 1 to 10
+
+
 ## How to Use
 
 1. Clone the repository to your local machine.
@@ -39,12 +47,6 @@ The Smart Report Generator is a comprehensive solution designed to enhance patie
 ![image](https://github.com/mxansari007/smartreport/assets/82407112/01c5de1d-cd9d-4b9f-af3f-7b294507af92)
 ![image](https://github.com/mxansari007/smartreport/assets/82407112/930e08b7-fcac-4de8-8044-707eb1aca5c4)
 
-# Users
-
-we have taken the data provided by the hackathon co-ordinators and we have selected 10 users from that data
-we are using mongoDb and express for backend.
-
-The user Id's are 1 to 10
 
 
 
