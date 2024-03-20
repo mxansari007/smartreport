@@ -1,6 +1,6 @@
 # Live Link
 [Live Link](https://smartreport.vercel.app/)
-
+[Video Link](https://www.dropbox.com/scl/fi/2u1ed3era7x617nnxoil8/bandicam-2024-03-20-17-46-01-602.mp4?rlkey=py4pyaqys2dj3b74gywev199z&dl=0)
 # Smart Report Generator
 
 ## Overview
