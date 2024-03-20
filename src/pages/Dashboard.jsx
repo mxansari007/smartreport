@@ -20,23 +20,26 @@ function Dashboard() {
   const [editChange,setEditChanges] = useState(initial);
   const [save,setSave] = useState(false);
   const [loading,setLoading] = useState(false);
+
+  const fetchUser = async ()=>{
+
+    try{
+      const res = await axios({
+        url:import.meta.env.VITE_BASE_URL + '/user/getUser',
+        method:'GET',
+        withCredentials:true,
+        
+      })
+      localStorage.setItem('user',JSON.stringify(res.data));
+      setUserDetails(res.data);
+    }catch(error){
+      console.log(error);
+    }
+
+  }
+
   useEffect(()=>{
-    ;(async ()=>{
-
-      try{
-        const res = await axios({
-          url:import.meta.env.VITE_BASE_URL + '/user/getUser',
-          method:'GET',
-          withCredentials:true,
-          
-        })
-
-        setUserDetails(res.data);
-      }catch(error){
-        console.log(error);
-      }
-
-    })()
+    fetchUser();
   },[])
 
   useEffect(()=>{
@@ -62,8 +65,9 @@ function Dashboard() {
           data:editChange
         })
 
-        localStorage.setItem('user',JSON.stringify(res.data));
-        setUserDetails(res.data);
+        
+        fetchUser();
+
         setLoading(false);
         setEdit(false);
         setSave(false);

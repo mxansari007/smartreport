@@ -5,7 +5,7 @@ import { TiThMenu } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 
 function NavBar() {
-  const midbar = ["DASHBOARD", "REPORT", "ADVICE", "OUR TEST"];
+  const midbar = ["DASHBOARD", "REPORT"];
   const [subMenu,setSubMenu] = useState(false);
 
   const Navigator = useNavigate();
