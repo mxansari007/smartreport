@@ -5,10 +5,14 @@ import { Button } from "@/components/ui/button";
 import axios from 'axios';
 import { useNavigate } from "react-router";
 import bgImage from '../assets/img.png';
+
+import LoadingPage from '../components/LoadingPage';
+
 function Login() {
 
   const [userId,setUserId] = useState('');
   const Navigator = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   useEffect(()=>{
     console.log(userId);
@@ -22,6 +26,7 @@ function Login() {
 
   const handleLogin = ()=>{
     console.log('clicked')
+    setLoading(true);
       ;(async ()=>{
         try{
          const res = await axios({
@@ -33,10 +38,13 @@ function Login() {
 
          console.log(res.data);
          localStorage.setItem('user',JSON.stringify(res.data));
+         setLoading(false);
          Navigator('/dashboard');
+
 
         }catch(err){
           console.log(err);
+          setLoading(false);
         }
       })()
   }
@@ -54,6 +62,7 @@ function Login() {
           <Input onChange={handleUser} className="w-3/6 text-sm bg-white mx-8 mb-3 text-black" placeholder="User ID" type="text" />
           <Button onClick={handleLogin} className="w-3/6 bg-[#F59E0B] text-white text-sm mx-8">Login</Button>
         </div>
+        {loading?<LoadingPage />:<></>}
       </div>
     </>
   );
