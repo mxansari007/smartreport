@@ -1,1 +1,1 @@
-export const DB_NAME = "smartreport"
+export const DB_NAME = "smartreport";

@@ -1,13 +1,12 @@
 import React, { useEffect,useState } from "react";
-import { Button } from "@/components/ui/button";
-import { CardContent, Card, CardFooter } from "@/components/ui/card";
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
+import { Button } from "../@/components/ui/button";
+import { CardContent, Card, CardFooter } from "../@/components/ui/card";
 import axios from 'axios';
 import Navbar from "../components/Navbar";
 import female from '../assets/profile.jpg';
 import male from '../assets/man.png';
 import { useNavigate } from "react-router-dom";
-import {Input} from '../components/ui/input';
+import {Input} from '../@/components/ui/input';
 import LoadingPage from "../components/LoadingPage";
 
 function Dashboard() {

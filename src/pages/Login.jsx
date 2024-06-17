@@ -1,20 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Label } from "../@/components/ui/label";
+import { Input } from "../@/components/ui/input";
+import { Button } from "../@/components/ui/button";
 import axios from 'axios';
 import { useNavigate } from "react-router";
 import bgImage from '../assets/img.png';
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import {authentication} from '../firebaseConfig';
 import { signInWithPhoneNumber,RecaptchaVerifier,PhoneAuthProvider,signInWithCredential } from "firebase/auth";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "../@/components/ui/input-otp"
 
 
 
 
 
 import LoadingPage from '../components/LoadingPage';
+import { Link } from "react-router-dom";
 
 function Login() {
 
@@ -23,6 +29,7 @@ function Login() {
   const Navigator = useNavigate();
   const [loading, setLoading] = useState(false);
   const [verificationId, setVerificationId] = useState('');
+  const [step,setStep] = useState(1);
 
 
 
@@ -84,6 +91,7 @@ const sendVerification =()=>{
     // user in with confirmationResult.confirm(code).
 
     // Save the confirmationResult.
+    setStep(2);
     setVerificationId(confirmationResult.verificationId);
     
   })
@@ -120,14 +128,48 @@ const confirmOtp = ()=>{
         </div>
         <div className="flex-1 flex flex-col justify-center items-start bg-[#1E40AF] text-white p-12 ">
           <h1 className="text-4xl font-bold mx-8 mb-8">Welcome To <br/>SMART REPORT</h1>
+          
+          {step===1?<div className="flex flex-col w-[300px]">
           <Label htmlFor="user-id" className="text-[#F59E0B] font-bold mx-8 mb-3">Enter Your Mobile Number</Label>
          <Input onChange={(e)=>{
-          setPhone(e.target.value);
-         }} className="w-3/6 md:w-600px mx-8 mb-4" />
-          <Button id="sign-in-button" onClick={()=>sendVerification()} className="w-3/6 bg-[#F59E0B] text-white text-sm mx-8 mb-10">Send OTP</Button>
-          <Input onChange={(e)=>{setOtp(e.target.value)}} className="w-3/6 md:w-600px mx-8 mb-4" />
-          <Button  id="sign-in-button" onClick={()=>{confirmOtp()}} className="w-3/6 bg-[#F59E0B] text-white text-sm mx-8">Verify OTP</Button>
+          setPhone('+91'+e.target.value);
+         }} className="w-[300px] text-black mx-8 mb-4" />
+          <Button id="sign-in-button" onClick={()=>sendVerification()} className="w-[300px] bg-[#F59E0B] text-white text-sm mx-8 mb-10">Send OTP</Button>
+          </div>:null}
+          
+          
+          
+          {step==2?<div className="w-full flex flex-col mx-8">
+          <Label htmlFor="otp" className="text-[#F59E0B] font-bold mx-8 mb-3">Enter OTP</Label>
+
+          <div className="w-[300px]">    
+          <InputOTP maxLength={6}>
+          <InputOTPGroup>
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
+          </InputOTPGroup>
+          <InputOTPSeparator />
+          <InputOTPGroup>
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
+          </InputOTPGroup>
+        </InputOTP>
         </div>
+
+          <Button  id="sign-in-button" onClick={()=>{confirmOtp()}} className="w-[300px] mt-6 bg-[#F59E0B] text-white text-sm">Verify OTP</Button>
+          </div>
+          :null}
+        
+
+        <div className="mt-6">
+            <h2 className="text-xl">Login As : <span className="text-md hover:text-black"><Link to="/manager">Manager</Link></span> / <span className="text-md hover:text-black"><Link to="/manager">Admin</Link></span></h2>
+        </div>
+        
+        </div>
+
+
         {loading?<LoadingPage />:<></>}
       </div>
     </>

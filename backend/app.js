@@ -30,8 +30,10 @@ app.use(cookieParser())
 import adminRouter from './routes/admin.routes.js';
 import othersRouter from './routes/others.routes.js';
 import userRouter from './routes/user.routes.js';
+import managerRouter from './routes/manager.routes.js';
 
 //routes declaration
+app.use("/manager", managerRouter);
 app.use("/others", othersRouter)
 app.use("/admin",adminRouter);
 app.use("/user",userRouter)

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import male from '../assets/male.svg';
 import Malebody from '../components/Malebody';
 import Line1 from '../components/Line1';
