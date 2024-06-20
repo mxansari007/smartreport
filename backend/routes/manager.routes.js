@@ -4,6 +4,7 @@ const router = Router();
 
 import { createManager,deleteManager,verifyManager } from "../controllers/manager/index.js";
 import {createTest,getTest,deleteTest,createParameter,getParameter} from "../controllers/manager/Test.js";
+import { createLabAdmin } from "../controllers/labAdmin/labAdmin.controller.js";
 
 
 router.post("/create",createManager);
@@ -16,6 +17,8 @@ router.get("/test/get",getTest);
 router.delete("/test/delete/:testName",deleteTest);
 router.post("/parameter/create",createParameter);
 router.get("/parameter/get/:param",getParameter);
+
+router.post("/createLabAdmin", createLabAdmin);
 
 
 
