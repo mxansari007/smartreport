@@ -25,6 +25,7 @@
     "clsx": "^2.1.1",
     "firebase": "^10.8.1",
     "input-otp": "^1.2.4",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.394.0",
     "otp-input-react": "^0.3.0",
     "react": "^18.2.0",
