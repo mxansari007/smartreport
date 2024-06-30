@@ -8,12 +8,13 @@ const userSchema = new Schema(
             lowercase: true,
             trim: true,
             index: true,
+            default: "",
         },
         email: {
             type: String,
-            unique: true,
             lowercase: true,
             trim: true,
+            default: "",
         },
         phone: {
             type: String,
@@ -22,6 +23,7 @@ const userSchema = new Schema(
         },
         avatar: {
             type: String,
+            default: 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png',
         },
         role: {
             type: String,
