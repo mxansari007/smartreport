@@ -19,11 +19,13 @@ app.use(express.static("public"));
 
 import labRouter from "./routes/laboratory.routes.js"
 import parameterRouter from "./routes/parameter.routes.js"
+import testRouter from "./routes/test.routes.js";
 
 
 //routes declaration
 app.use("/api/v1/labs",labRouter)
 app.use("/api/v1/parameters",parameterRouter)
+app.use("/api/v1/tests",testRouter)
 
 
 
