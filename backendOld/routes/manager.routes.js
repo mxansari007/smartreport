@@ -22,6 +22,8 @@ router.delete("/parameter/delete/:param",deleteParameter);
 
 router.post("/createLabAdmin", createLabAdmin);
 
+router.post("/createLabAdmin", createLabAdmin);
+
 
 
 
