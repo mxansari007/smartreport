@@ -18,7 +18,9 @@ import Navbar from './components/Navbar.jsx';
 const ManagerLogin = React.lazy(() => import('./pages/Manager/Login.jsx'));
 const ManagerDashboard = React.lazy(() => import('./pages/Manager/Dashboard.jsx'));
 const CreateTest = React.lazy(() => import('./pages/Manager/Test.jsx'));
-const CreateParameter = React.lazy(() => import('./pages/Manager/Parameter.jsx'));
+const ManagerLab = React.lazy(() => import('./pages/Manager/Lab.jsx'));
+const ManagerAdmin  = React.lazy(() => import('./pages/Manager/ManageAdmin.jsx'));
+const LandingPage = React.lazy(() => import('./pages/Common/LandingPage.jsx'));
 
 
 function App() {
@@ -60,11 +62,21 @@ function App() {
         <Route path="/manager/tests" element={<Suspense fallback={<LoadingPage />}>
           <CreateTest />
         </Suspense>} />
-        
-        <Route path="/manager/parameter" element={<Suspense fallback={<LoadingPage />}>
-          <CreateParameter />
+      
+        <Route path="/manager/labs" element={<Suspense fallback={<LoadingPage />}>
+          <ManagerLab />
         </Suspense>} />
+
+
+          <Route path="/manager/labadmin" element={<Suspense fallback={<LoadingPage />}>
+          <ManagerAdmin />
+        </Suspense>} /> 
         
+        <Route path="/landing" element={<Suspense fallback={<LoadingPage />}>
+          <LandingPage />
+        </Suspense>} />
+
+
         </Routes>
       </BrowserRouter>
     </>

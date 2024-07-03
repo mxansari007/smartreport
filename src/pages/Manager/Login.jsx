@@ -20,6 +20,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Link } from "react-router-dom";
 
+import loginMobile from '../../assets/login-mobile.png';
+
 
 
 
@@ -121,15 +123,33 @@ const sendVerification =async ()=>{
  
 }
 
+const loginManager = async ()=>{
+  setLoading(true);
+  try{
+    const res = await axios({
+      url:import.meta.env.VITE_BASE_URL + '/manager/login',
+      method:'POST',
+      data:{contactNo:phone.split('+91')[1]},
+      withCredentials:true
+    })
+    localStorage.setItem('token',res.data.token);
+    Navigator('/manager/dashboard');
+  }catch(error){
+    console.log(error);
+    toast.error('Manager Not Found');
+    setLoading(false);
+  }
+}
+
 const confirmOtp = ()=>{
     setLoading(true);
   const credential = PhoneAuthProvider.credential(verificationId, otp);
   signInWithCredential(authentication, credential)
     .then((result) => {
         console.log("Signed in with phone number");
-        setLoading(false);
-        Navigator('/Manager/Dashboard');
-    }).catch((error) => {
+        loginManager();
+
+      }).catch((error) => {
         setLoading(false);
       console.error("Error during signInWithCredential", error);
     });
@@ -143,21 +163,23 @@ const confirmOtp = ()=>{
 
   return (
     <>
-      <div className="min-h-screen bg-[#60A5FA] flex">
-        <div className="">
-          <img className="h-screen bg-cover bg-origin-content bg-no-repeat" src={bgImage} alt='bgImage' />
+      <div className="min-h-screen bg-white flex md:flex-row flex-col">
+        <div className="flex-1 p-4 md:p-0 flex justify-center bg-blue-300">
+
+          <img className="hidden md:block w-full h-screen " src={bgImage} alt='bgImage' />
+          <img className="md:hidden visible w-[300px]" src={loginMobile} />
         </div>
-        <div className="flex-1 flex flex-col items-start bg-[#1E40AF] text-white p-12 ">
-        <h1 className="text-bold text-xl bg-blue-600 px-6 py-2 rounded-full">Manager Login</h1>
+        <div className="flex-[2] flex flex-col items-start bg-[#1E40AF] text-white p-12 ">
+        <h1 className="mb-4 md:mb-0 text-bold text-xl bg-blue-600 px-6 py-2 rounded-full">Manager Login</h1>
         <div className="flex-1 flex flex-col justify-center">
-          <h1 className="text-4xl font-bold mx-8 mb-8">Welcome To <br/>SMART REPORT</h1>
+          <h1 className=" font-bold mx-8 mb-8">Welcome To <br/>SMART REPORT</h1>
           
-          {step===1?<div className="flex flex-col w-[300px]">
+          {step===1?<div className="flex flex-col">
           <Label htmlFor="user-id" className="text-[#F59E0B] font-bold mx-8 mb-3">Enter Your Mobile Number</Label>
          <Input onChange={(e)=>{
           setPhone('+91'+e.target.value);
-         }} className="w-[300px] text-black mx-8 mb-4" />
-          <Button id="sign-in-button" onClick={()=>sendVerification()} className="w-[300px] bg-[#F59E0B] text-white text-sm mx-8 mb-10">Send OTP</Button>
+         }} className="w-full md:w-[300px] text-black mx-2 md:mx-8 mb-4" />
+          <Button id="sign-in-button" onClick={()=>sendVerification()} className="w-full md:w-[300px] bg-[#F59E0B] hover:bg-yellow-400 text-white text-sm mx-2 md:mx-8 mb-10">Send OTP</Button>
           </div>:null}
           
           

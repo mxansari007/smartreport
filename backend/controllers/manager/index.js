@@ -1,4 +1,5 @@
 import {Manager} from "../../models/manager/index.js";
+import jwt from "jsonwebtoken";
 
 
 
@@ -26,6 +27,27 @@ async function verifyManager(req, res) {
     }
 }
 
+async function loginManager(req,res){
+
+    try{
+        const {contactNo} = req.body;
+        const manager = await Manager.findOne({contactNo:contactNo});
+        if(!manager){
+            return res.status(404).send("Manager not found");
+        }
+        const token = jwt.sign({contactNo:contactNo,role:'manager'},'maazansari');
+        console.log(token);
+        res.cookie('token',token,{httpOnly:true});
+        res.status(200).send({token:token});
+
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+
+
+}
+
 async function deleteManager(req, res) {
     try {
         const manager = await Manager.findOne({ contactNo: req.params.contactNo });
@@ -45,5 +67,5 @@ async function deleteManager(req, res) {
 
 
 
-export { createManager, deleteManager,verifyManager };
+export { createManager, deleteManager,verifyManager,loginManager };
 

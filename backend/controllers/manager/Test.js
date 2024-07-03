@@ -101,9 +101,23 @@ async function getParameter(req, res){
     }
 }
 
+async function deleteParameter(req, res){
+    try{
+        const param = req.params.param;
+        const parameter = await Parameter.findOneAndDelete({parameterName:param});
+        if(!parameter){
+            return res.status(404).send("Parameter not found");
+        }
+        res.status(200).send(parameter);
+    }
+    catch(err){
+        res.status(500).send(err);
+    }
+}
 
 
-export { createTest,getTest,deleteTest, createParameter,getParameter };
+
+export { createTest,getTest,deleteTest, createParameter,getParameter,deleteParameter };
 
 
 
