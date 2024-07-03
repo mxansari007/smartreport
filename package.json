@@ -28,8 +28,13 @@
     "clsx": "^2.1.1",
     "firebase": "^10.8.1",
     "input-otp": "^1.2.4",
+<<<<<<< HEAD
     "leaflet": "^1.9.4",
+=======
+    "jsonwebtoken": "^9.0.2",
+>>>>>>> dfe174ce47b000beae44d7984ea94a63fe78fdc9
     "lucide-react": "^0.394.0",
+    "mongoose": "^8.4.4",
     "otp-input-react": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
