@@ -5,10 +5,10 @@ import { Laboratory } from "../models/laboratory.model.js";
 
 //create lab
 const createLab = asyncHandler(async (req, res) => {
-  const { name, admin, address, city, operatingHours, contact, email, tests } =
+  const { name, admin, address, city, operatingHours, contact, email, tests, lat,lng } =
     req.body;
 
-  if (!name || !address || !city || !operatingHours || !contact || !email) {
+  if (!name || !address || !city || !operatingHours || !contact || !email || !lat || !lng) {
     throw new ApiError(400, "All fields are required.");
   }
 
@@ -26,6 +26,8 @@ const createLab = asyncHandler(async (req, res) => {
     contact,
     email,
     tests,
+    lat,
+    lng
   });
 
   return res

@@ -26,8 +26,11 @@ import loginMobile from '../../assets/login-mobile.png';
 
 
 import LoadingPage from '../../components/LoadingPage';
+import { set } from "react-hook-form";
 
 function Login() {
+
+
 
   const [phone,setPhone] = useState('');
   const [otp,setOtp] = useState('');
@@ -35,6 +38,9 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [verificationId, setVerificationId] = useState('');
   const [step,setStep] = useState(1);
+  const [time,setTime] = useState(15);
+  const [myInterval,setMyInterval] = useState(null);
+
 
 
 
@@ -49,12 +55,13 @@ function Login() {
     ;(async ()=>{
         try{
             const result = await axios({
-            url:import.meta.env.VITE_BASE_URL + '/Manager/Verify/'+phone.split('+91')[1],
-            method:'GET',
+            url:import.meta.env.VITE_BASE_URL + '/api/v1/users/isUserExist',
+            data:{phone:phone.split('+91')[1]},
+            method:'POST',
             withCredentials:true
             })
 
-            if(result.data.status==='success'){
+            if(result.data.success){
                 res({status:true,message:'Manager Found'});
             }else{
                 rej({status:false,message:'Manager Not Found'});
@@ -87,6 +94,7 @@ function Login() {
   }
 
 const sendVerification =async ()=>{
+  window.recaptchaVerifier = null;
   onCaptchaVerify();
   const appVerifier = window.recaptchaVerifier;
   setLoading(true);
@@ -127,9 +135,9 @@ const loginManager = async ()=>{
   setLoading(true);
   try{
     const res = await axios({
-      url:import.meta.env.VITE_BASE_URL + '/manager/login',
+      url:import.meta.env.VITE_BASE_URL + '/api/v1/users/login',
       method:'POST',
-      data:{contactNo:phone.split('+91')[1]},
+      data:{phone:phone.split('+91')[1],role:"manager"},
       withCredentials:true
     })
     localStorage.setItem('token',res.data.token);
@@ -204,6 +212,9 @@ const confirmOtp = ()=>{
         </div>
 
           <Button  id="sign-in-button" onClick={()=>{confirmOtp()}} className="w-[300px] mt-6 bg-[#F59E0B] text-white text-sm">Verify OTP</Button>
+          <p className="mt-4">Resend OTP {time!==0?`in : ${time}`:<>
+          <span className="text-blue-500 cursor-pointer" onClick={()=>{sendVerification();setTime(-1)}}>Resend</span>
+          </>}</p>
           </div>
           :null}
 

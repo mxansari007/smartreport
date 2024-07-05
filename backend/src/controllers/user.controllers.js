@@ -292,6 +292,28 @@ const getCurrentUser = asyncHandler(async(req, res) =>{
         ))
 })
 
+const isUserExist = asyncHandler(async(req, res, next) => {
+    const {phone} = req.body;
+    if(!phone){
+        throw new ApiError(400, "Bad Request: Phone number is required");
+    }
+
+    const user = await User.findOne({ phone });
+    if(!user){
+        throw new ApiError(404, "Not Found: User not found");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(
+            200,
+            {
+                user,
+            },
+            "User retrieved successfully"
+        ))
+})
+
 
 
     export {
@@ -300,5 +322,6 @@ const getCurrentUser = asyncHandler(async(req, res) =>{
         logoutUser,
         updateUser,
         refreshAccessToken,
-        getCurrentUser
+        getCurrentUser,
+        isUserExist,
     };

@@ -39,7 +39,7 @@ const Test = () => {
     const [openParameter,setOpenParameter] = useState(false);
     const [testName,setTestName] = useState('');
     const [testPrice,setTestPrice] = useState('');
-    const [data,setData] = useState([{}]);
+    const [data,setData] = useState([]);
     const [parameters,setParameters] = useState({});
     const [paraList,setParaList] = useState([]);
 

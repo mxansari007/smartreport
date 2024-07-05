@@ -9,5 +9,5 @@ router.route("/createLab").post(createLab)//create lab
 router.route('/get-lab/name/:name').get(getLaboratory);//get lab by name
 router.route('/').get(getAllLaboratories);//get all labs
 router.route('/update/:id').put(updateLaboratory);//update lab
-router.route('/delete/name/:name').delete(deleteLaboratoryByName);//deleteing laboratory by name
+router.route('/delete/:name').delete(deleteLaboratoryByName);//deleteing laboratory by name
 export default router;

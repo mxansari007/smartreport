@@ -27,7 +27,7 @@ const userSchema = new Schema(
         },
         role: {
             type: String,
-            enum: ["labAdmin", "patient"],
+            enum: ["manager","labAdmin", "patient"],
             required: true,
         },
         refreshToken:{
