@@ -5,10 +5,23 @@ import {Card,CardHeader,CardTitle,CardContent,CardFooter,CardDescription} from '
 import {Label} from '../../@/components/ui/label'
 import {Input} from '../../@/components/ui/input'
 import {Button} from '../../@/components/ui/button'
-
-
+import { useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
 
 const ManageAdmin = () => {
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+        mode: 'onBlur',
+        defaultValues:{
+            firstName:'',
+            lastName:'',
+            email:'',
+            phone:'',
+            assignLab:''
+        }
+      });
+
+
   return (
     <>
         <ManagerNav/>

@@ -12,11 +12,9 @@ const parameterSchema= new Schema(
       },
       impression:{
         type:String,
-        required:true
       },
       parameterValue:{
         type:Number,
-        required:true
       },
       lowerBound:{
         type:Number,
@@ -28,13 +26,13 @@ const parameterSchema= new Schema(
       },
       is_highlighted:{
         type:Boolean,
-        required:true
       },
       displayName:{
         type:String
       },
       unit:{
-        type:String
+        type:String,
+        required:true
       }
 
     },

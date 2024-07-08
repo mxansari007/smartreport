@@ -21,8 +21,8 @@ const CreateTest = React.lazy(() => import('./pages/Manager/Test.jsx'));
 const ManagerLab = React.lazy(() => import('./pages/Manager/Lab.jsx'));
 const ManagerAdmin  = React.lazy(() => import('./pages/Manager/ManageAdmin.jsx'));
 const LandingPage = React.lazy(() => import('./pages/Common/LandingPage.jsx'));
-
-
+const LabAdminLogin = React.lazy(() => import('./pages/LabAdmin/Login.jsx'));
+const LabAdminDashboard = React.lazy(() => import('./pages/LabAdmin/Dashboard.jsx'));
 function App() {
   return (
     <>
@@ -74,6 +74,14 @@ function App() {
         
         <Route path="/landing" element={<Suspense fallback={<LoadingPage />}>
           <LandingPage />
+        </Suspense>} />
+
+        <Route path="/labadmin/login" element={<Suspense fallback={<LoadingPage />}>
+          <LabAdminLogin />
+        </Suspense>} />
+
+        <Route path="/labadmin/dashboard" element={<Suspense fallback={<LoadingPage />}>
+          <LabAdminDashboard />
         </Suspense>} />
 
 

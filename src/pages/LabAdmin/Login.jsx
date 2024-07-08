@@ -178,7 +178,7 @@ const confirmOtp = ()=>{
           <img className="md:hidden visible w-[300px]" src={loginMobile} />
         </div>
         <div className="flex-[2] flex flex-col items-start bg-[#1E40AF] text-white p-12 ">
-        <h1 className="mb-4 md:mb-0 text-bold text-xl bg-blue-600 px-6 py-2 rounded-full">Manager Login</h1>
+        <h1 className="mb-4 md:mb-0 text-bold text-xl bg-blue-600 px-6 py-2 rounded-full">Lab Admin</h1>
         <div className="flex-1 flex flex-col justify-center">
           <h1 className=" font-bold mx-8 mb-8">Welcome To <br/>SMART REPORT</h1>
           
@@ -187,7 +187,10 @@ const confirmOtp = ()=>{
          <Input onChange={(e)=>{
           setPhone('+91'+e.target.value);
          }} className="w-full md:w-[300px] text-black mx-2 md:mx-8 mb-4" />
-          <Button id="sign-in-button" onClick={()=>sendVerification()} className="w-full md:w-[300px] bg-[#F59E0B] hover:bg-yellow-400 text-white text-sm mx-2 md:mx-8 mb-10">Send OTP</Button>
+          <Button id="sign-in-button" onClick={()=>{
+            // sendVerification()
+            Navigator('/labadmin/dashboard')
+            }} className="w-full md:w-[300px] bg-[#F59E0B] hover:bg-yellow-400 text-white text-sm mx-2 md:mx-8 mb-10">Send OTP</Button>
           </div>:null}
           
           
@@ -219,7 +222,7 @@ const confirmOtp = ()=>{
           :null}
 
           <div className="mt-6">
-            <h2 className="text-xl">Login As : <span className="text-md hover:text-black"><Link to="/">Patient</Link></span> / <span className="text-md hover:text-black"><Link to="/labadmin/login">Admin</Link></span></h2>
+            <h2 className="text-xl">Login As : <span className="text-md hover:text-black"><Link to="/">Patient</Link></span> / <span className="text-md hover:text-black"><Link to="/manager">Admin</Link></span></h2>
         </div>
           </div>
         

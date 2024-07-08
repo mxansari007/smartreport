@@ -219,7 +219,7 @@ const Lab = () => {
             method:'POST',
             withCredentials:true
           })
-          console.log(result)
+          getLabs();
 
         }
         catch(e){

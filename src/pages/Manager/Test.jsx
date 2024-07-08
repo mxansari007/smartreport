@@ -51,14 +51,18 @@ const Test = () => {
     const getTests = async ()=>{
         try{
             const res = await axios({
-                url:import.meta.env.VITE_BASE_URL + '/manager/test/get',
+                url:import.meta.env.VITE_BASE_URL + '/api/v1/tests',
                 method:'GET',
+                params:{
+                    limit:Number.MAX_SAFE_INTEGER
+                },
                 withCredentials:true
             })
+            console.log(res.data);
 
-            res.data.forEach((d)=>d.parameters = d.parameters.map((p)=>p.parameterName).join(', '));
+            res.data.data.forEach((d)=>d.parameters = d.parameters.map((p)=>p.name).join(', '));
 
-            setData(res.data);
+            setData(res.data.data);
         }catch(error){
             console.log(error);
         }
@@ -67,7 +71,7 @@ const Test = () => {
 
       const columns = useMemo(()=>[
         {
-          accessorKey: "testName",
+          accessorKey: "name",
           header: "Test Name",
           Cell: ({ row }) => console.log(row),
         },
@@ -88,7 +92,7 @@ const Test = () => {
                     async ()=>{
                         try{
                             const res = await axios({
-                                url:import.meta.env.VITE_BASE_URL + '/manager/test/delete/'+row.original.testName,
+                                url:import.meta.env.VITE_BASE_URL + '/api/v1/tests/delete-test/'+row.original._id,
                                 method:'DELETE',
                                 withCredentials:true
                             })
@@ -108,11 +112,11 @@ const Test = () => {
 
       const paraColumns = useMemo(()=>[
         {
-          accessorKey: "parameterName",
+          accessorKey: "name",
           header: "Parameter Name",
         },
         {
-          accessorKey: "parameterUnit",
+          accessorKey: "unit",
           header: "Parameter Unit",
         },
         {
@@ -126,9 +130,10 @@ const Test = () => {
             <button onClick={() =>{
                 (
                     async ()=>{
+                        console.log(row.original);
                         try{
                             const res = await axios({
-                                url:import.meta.env.VITE_BASE_URL + '/manager/parameter/delete/'+row.original.parameterName,
+                                url:import.meta.env.VITE_BASE_URL + '/api/v1/parameters/delete-parameter/'+row.original._id,
                                 method:'DELETE',
                                 withCredentials:true
                             })
@@ -168,14 +173,18 @@ const Test = () => {
         try{
 
             const res = await axios({
-                url:import.meta.env.VITE_BASE_URL + '/manager/parameter/get/all',
+                url:import.meta.env.VITE_BASE_URL + '/api/v1/parameters',
                 method:'GET',
-                withCredentials:true
+                params:{
+                    limit:Number.MAX_SAFE_INTEGER
+                },
+                withCredentials:true,
+               
             })
 
-            res.data.forEach((d)=>d.upperLower = d.upperBound + '/' + d.lowerBound);
+            res.data.data.parameters.forEach((d)=>d.upperLower = d.upperBound + '/' + d.lowerBound);
 
-            setParaList(res.data);
+            setParaList(res.data.data.parameters);
         }catch(error){
             console.log(error);
         }
@@ -187,21 +196,29 @@ const Test = () => {
         try{
             if(parameter===''){
                 const res = await axios({
-                    url:import.meta.env.VITE_BASE_URL + '/manager/parameter/get/all',
+                    url:import.meta.env.VITE_BASE_URL + '/api/v1/parameters',
                     method:'GET',
-                    withCredentials:true
+                    params:{
+                        limit:Number.MAX_SAFE_INTEGER,
+                        name:'all'
+                    },
+                    withCredentials:true,
                 })
-                const Tags = res.data.map((p)=>p.parameterName);
+                const Tags = res.data.data.parameters.map((p)=>{return {id:p._id,name:p.parameterName}});
                 setTags(Tags);
             }else{
             const res = await axios({
-                url:import.meta.env.VITE_BASE_URL + '/manager/parameter/get/'+parameter,
-                // params:parameter,
+                url:import.meta.env.VITE_BASE_URL + '/api/v1/parameters',
                 method:'GET',
-                withCredentials:true
+                params:{
+                    limit:Number.MAX_SAFE_INTEGER,
+                    name:parameter
+                },
+                withCredentials:true,
+               
             })
 
-            const Tags = res.data.map((p)=>p.parameterName);
+            const Tags = res.data.data.parameters.map((p)=>{return {id:p._id,name:p.name}});
             setTags(Tags);
         }
         }catch(error){
@@ -215,10 +232,10 @@ const Test = () => {
         e.preventDefault();
         try{
             const res = await axios({
-                url:import.meta.env.VITE_BASE_URL + '/manager/test/create',
+                url:import.meta.env.VITE_BASE_URL + '/api/v1/tests/create-test',
                 method:'POST',
                 data:{
-                    testName:testName,
+                    name:testName,
                     parameters:list,
                     price:testPrice
                 },
@@ -240,7 +257,7 @@ const Test = () => {
 
         try{
             const res = await axios({
-                url:import.meta.env.VITE_BASE_URL + '/manager/parameter/create',
+                url:import.meta.env.VITE_BASE_URL + '/api/v1/parameters/create-parameter',
                 method:'POST',
                 data:parameters,
                 withCredentials:true
@@ -292,13 +309,14 @@ const Test = () => {
         <h4 className="mb-4 text-sm font-medium leading-none">Parameters</h4>
         {tags.length!==0?tags.map((tag) => (
           <>
-            <div key={tag} onClick={
+            <div key={tag.id} onClick={
                 (e)=>{
                     setList(prevList => [...prevList, tag]);
+                    console.log(list);
                 }
             
             } className="text-sm cursor-pointer">
-              {tag}
+              {tag.name}
             </div>
             <Separator className="my-2" />
           </>
@@ -317,36 +335,36 @@ const Test = () => {
         </DialogDescription>
         </DialogHeader>
         <form className='flex flex-col'>
-    <Label className="mb-2" htmlFor='test-name'>Parameter Name</Label>
+    <Label className="mb-2" htmlFor='parameter-name'>Parameter Name</Label>
     <Input onChange={
         (e)=>{
             changeParameter(e);
         }
-    } id='parameterName' name="parameterName"  type='text' placeholder='Enter Parameter Name' />
+    } id='name' name="name" type='text' placeholder='Enter Parameter Name' />
     
-    <Label className="mb-2 mt-4" htmlFor='test-parameter'>Parameter Unit</Label>
+    <Label className="mb-2 mt-4" htmlFor='parameter-unit'>Parameter Unit</Label>
     <Input onChange={(e)=>{changeParameter(e)} }
-            id='parameterUnit' 
-            name='parameterUnit'
+            id='unit' 
+            name='unit'
             type='text' 
             placeholder='Enter Parameter Unit'
             />
 
-    <Label className="mb-2 mt-2" htmlFor='test-price'>Upper Bound</Label>
+    <Label className="mb-2 mt-2" htmlFor='upper-bound'>Upper Bound</Label>
     <Input onChange={
         (e)=>{
             changeParameter(e);
         }
     
-    } id='upperBound' name="upperBournd" type='text' placeholder='Enter Upper Bound' />
-    <Label className="mb-2 mt-2" htmlFor='test-price'>Lower Bound</Label>
+    } id='upperBound' name="upperBound" type='text' placeholder='Enter Upper Bound' />
+    <Label className="mb-2 mt-2" htmlFor='lower-bound'>Lower Bound</Label>
     <Input onChange={
         (e)=>{
             changeParameter(e);
         }
     
     } id='lowerBound' name="lowerBound" type='text' placeholder='Enter Lower Bound' />
-    <Label className="mb-2 mt-2" htmlFor='test-price'>Method</Label>
+    <Label className="mb-2 mt-2" htmlFor='method'>Method</Label>
     <Input onChange={
         (e)=>{
             changeParameter(e);
@@ -371,7 +389,7 @@ const Test = () => {
     </div>
     <div>
         <ul className='w-[600px]'>{
-            list.map((l)=><li>{l}</li>)
+            list.map((l)=><li>{l.name}</li>)
         }</ul>
     </div>
     <p onClick={()=>{setList([])}} className='text-blue-700 cursor-pointer mt-6 mb-4'>Clear</p>

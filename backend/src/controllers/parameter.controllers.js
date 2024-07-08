@@ -6,43 +6,43 @@ import { Parameter } from '../models/parameter.model.js';
 //create parameter
 
 const createParameter=asyncHandler(async(req,res)=>{
-    const {name,method,impression,parameterValue,lowerBound,upperBound,is_highlighted,displayName,unit}=req.body;
+    const {name,method,lowerBound,upperBound,unit}=req.body;
 
-    if(!name||!method||!impression||parameterValue===undefined||lowerBound===undefined||upperBound===undefined||is_highlighted===undefined){
+    if(name==undefined||method==undefined||lowerBound===undefined||upperBound===undefined||unit==undefined){
         throw new ApiError(400,"All required fields must be provided");
     }
 
     const newParameter= await Parameter.create({
         name,
         method,
-        impression,
-        parameterValue,
         lowerBound,
         upperBound,
-        is_highlighted,
-        displayName,
         unit
     })
     return res.status(201).json(new ApiResponse(201,newParameter,"Parameter created successfully"))
 })
 
 const getAllParameters = asyncHandler(async (req, res) => {
-    const { method, is_highlighted, sortBy, order = 'asc', page = 1, limit = 10 } = req.query;
+    const { name, sortBy, order = 'asc', page = 1, limit = 10 } = req.query;
 
     // Build query object
     const query = {};
-    if (method) query.method = method;
-    if (is_highlighted !== undefined) query.is_highlighted = is_highlighted === 'true';
+    if (name) query.name = { $regex: `^${name}`, $options: 'i' };
 
     // Set sorting
     const sortOptions = {};
     if (sortBy) sortOptions[sortBy] = order === 'asc' ? 1 : -1;
 
     // Fetch parameters with pagination
-    const parameters = await Parameter.find(query)
-                                     .sort(sortOptions)
-                                     .skip((page - 1) * limit)
-                                     .limit(parseInt(limit));
+    let parameters =[];
+    if(query.name == 'all'){
+        parameters = await Parameter.find();
+    }else{
+        parameters = await Parameter.find(query)
+        .sort(sortOptions)
+        .skip((page - 1) * limit)
+        .limit(parseInt(limit));
+    }
 
     const totalParameters = await Parameter.countDocuments(query);
 

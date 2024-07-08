@@ -157,11 +157,11 @@ const updateUser = asyncHandler(async(req, res) => {
         if(!user){
             throw new ApiError(400, "Bad Request: Unauthorized request");
         }
-        const {name, email, phone} = req.body;
+        const {firstName,lastName, email, phone} = req.body;
         const avatarPath = req.file?.path;
         if(
             
-            [name, email, phone, avatarPath].every((value) => value == null || value.trim() === "")
+            [firstName,lastName, email, phone, avatarPath].every((value) => value == null || value.trim() === "")
         ){
             console.log("first");
             throw new ApiError(400, "Bad Request: At least one field is required");
@@ -203,7 +203,8 @@ const updateUser = asyncHandler(async(req, res) => {
         const updatedUser = await User.findByIdAndUpdate(
             user._id,
             {
-                name: name || user.name || "",
+                firstName: firstName || user.firstName || "",
+                lastName: lastName || user.lastName || "",
                 email: email || user.email || "",
                 phone: phone || user.phone,
                 avatar: user.avatar,

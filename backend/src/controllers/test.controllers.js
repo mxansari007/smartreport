@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createTest = asyncHandler(async (req, res) => {
-  const { name, parameters,price, status } = req.body;
+  const { name, parameters,price } = req.body;
   if (
     !name ||
     !parameters ||
@@ -24,20 +24,21 @@ const createTest = asyncHandler(async (req, res) => {
 
 
   // Check if all provided parameters exist
-  const existingParameters = await Parameter.find({ _id: { $in: parameters } });
+  const para_list = parameters.map(param => param.id);
+  console.log(para_list);
+  const existingParameters = await Parameter.find({ _id: { $in: para_list } });
   const existingParameterIds = existingParameters.map(param => param._id.toString());
-
-  const nonExistingParameters = parameters.filter(param => !existingParameterIds.includes(param.toString()));
+  console.log(existingParameterIds);
+  const nonExistingParameters = para_list.filter(param => !existingParameterIds.includes(param));
 
   if (nonExistingParameters.length > 0) {
     throw new ApiError(400, `The following parameters do not exist: ${nonExistingParameters.join(', ')}`);
   }
 
   const newTest = await Test.create({
-    name,
-    parameters,
-    price,
-    status,
+    name:name,
+    parameters:para_list,
+    price:price,
   });
 
   const populatedTest = await Test.findById(newTest._id).populate('parameters').exec();

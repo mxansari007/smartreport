@@ -17,6 +17,8 @@ import {
   export function DataTable({
     columns,
     data,
+    color,
+    headerTextColor,
   }) {
     const table = useReactTable({
       data,
@@ -32,7 +34,7 @@ import {
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className={headerTextColor}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -53,7 +55,7 @@ import {
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className={color}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
