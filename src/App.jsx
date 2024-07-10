@@ -14,7 +14,6 @@ const TestPage = React.lazy(() => import('./pages/TestPage.jsx'));
 const DisplayTest = React.lazy(() => import('./pages/DisplayTest.jsx'));
 import Navbar from './components/Navbar.jsx';
 
-
 const ManagerLogin = React.lazy(() => import('./pages/Manager/Login.jsx'));
 const ManagerDashboard = React.lazy(() => import('./pages/Manager/Dashboard.jsx'));
 const CreateTest = React.lazy(() => import('./pages/Manager/Test.jsx'));
@@ -23,11 +22,15 @@ const ManagerAdmin  = React.lazy(() => import('./pages/Manager/ManageAdmin.jsx')
 const LandingPage = React.lazy(() => import('./pages/Common/LandingPage.jsx'));
 const LabAdminLogin = React.lazy(() => import('./pages/LabAdmin/Login.jsx'));
 const LabAdminDashboard = React.lazy(() => import('./pages/LabAdmin/Dashboard.jsx'));
+const Checkout = React.lazy(() => import('./pages/Common/Checkout.jsx'));
+
+
 function App() {
   return (
     <>
       <BrowserRouter>
       {/* <Navbar /> */}
+      <CartContext.Provider value={{cart:[]}}>
       <Routes>
         
         <Route path='/' element={<Suspense 
@@ -84,8 +87,14 @@ function App() {
           <LabAdminDashboard />
         </Suspense>} />
 
+        <Route path="/checkout" element={<Suspense fallback={<LoadingPage />}>
+          <Checkout />
+        </Suspense>} />
+
+
 
         </Routes>
+        </CartContext.Provider>
       </BrowserRouter>
     </>
   );

@@ -31,8 +31,8 @@ const BeforeLoginNav = () => {
         <>
         <TooltipProvider>
         <div className="flex justify-between w-full min-h-[100px] border-b-2 bg-white">
-        <div className="flex min-h-[100px] items-center px-10 gap-4">
-            <h1 className="text-3xl roboto-black text-[#0A5BA5]">Smart Report</h1>
+        <div className="flex min-h-[100px] items-center px-10 gap-4 justify-center">
+            <h1 className="text-xl px-10 roboto-black text-yellow-500 bg-[#0A5BA5] border p-2 rounded-full">Smart Report</h1>
             <div className="-mt-4">
             <Select>
                 <SelectTrigger className="max-w-[150px]">
