@@ -3,7 +3,7 @@
 // import viteLogo from '/vite.svg'
 // import { Button } from './components/ui/button'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import React from 'react';
 import LoadingPage from './components/LoadingPage.jsx';
 
@@ -23,14 +23,23 @@ const LandingPage = React.lazy(() => import('./pages/Common/LandingPage.jsx'));
 const LabAdminLogin = React.lazy(() => import('./pages/LabAdmin/Login.jsx'));
 const LabAdminDashboard = React.lazy(() => import('./pages/LabAdmin/Dashboard.jsx'));
 const Checkout = React.lazy(() => import('./pages/Common/Checkout.jsx'));
+import { CartContext } from './contexts/CartContext.jsx';
+import { set } from 'mongoose';
 
 
 function App() {
+  const [cart,setCart] = React.useState({data:[],totalQuantity:0,totalPrice:0});
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem('cart')) || {data:[],totalQuantity:0,totalPrice:0});
+  }
+  , []);
+
   return (
     <>
       <BrowserRouter>
       {/* <Navbar /> */}
-      <CartContext.Provider value={{cart:[]}}>
+      <CartContext.Provider value={{cart,setCart}}>
       <Routes>
         
         <Route path='/' element={<Suspense 

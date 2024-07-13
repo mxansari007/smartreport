@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useContext } from 'react'
 import BeforeLoginNav from '../../components/BeforeLoginNav.jsx';
 import Card from '../../components/Card.jsx';
 import axios from 'axios';
-
+import { CartContext } from '../../contexts/CartContext.jsx';
 const LandingPage = () => {
 
   const [tests, setTests] = React.useState([])
+  const {cart, setCart} = useContext(CartContext);
 
   useEffect(() => {
     ;(async () => {
